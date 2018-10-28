@@ -11,7 +11,7 @@ trait PacoService extends Service {
   override def descriptor: Descriptor = {
     import Service._
     named("paco").withCalls(
-     restCall(Method.GET, "/sayHello", sayHello _)
+     pathCall("/api/paco/sayHello", sayHello _)
     )
   }
 
