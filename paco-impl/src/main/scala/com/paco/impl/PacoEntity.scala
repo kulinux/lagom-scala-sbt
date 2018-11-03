@@ -9,13 +9,9 @@ import com.lightbend.lagom.scaladsl.persistence.PersistentEntity.ReplyType
 import com.lightbend.lagom.scaladsl.playjson.{JsonSerializer, JsonSerializerRegistry}
 import play.api.libs.json.{Format, Json}
 
-import scala.collection.immutable
+import scala.collection.immutable.Seq
 
 
-
-object PacoSerializerRegistry extends JsonSerializerRegistry {
-  override def serializers: immutable.Seq[JsonSerializer[_]] = immutable.Seq()
-}
 
 class PacoEntity extends PersistentEntity {
 
@@ -46,7 +42,13 @@ class PacoEntity extends PersistentEntity {
 //command
 sealed trait PacoCommand[R] extends ReplyType[R]
 case class PacoCommandMessage(message: String) extends PacoCommand[Done]
+object PacoCommandMessage {
+  implicit val format: Format[PacoCommandMessage] = Json.format
+}
 case class Paco(name: String) extends PacoCommand[String]
+object Paco {
+  implicit val format: Format[Paco] = Json.format
+}
 
 //event
 sealed trait PacoEvent extends AggregateEvent[PacoEvent] {
@@ -65,3 +67,14 @@ case class PacoState(message: String, timestamp: String)
 object PacoState {
   implicit val format: Format[PacoState] = Json.format
 }
+
+
+object PacoSerializerRegistry extends JsonSerializerRegistry {
+  override def serializers: Seq[JsonSerializer[_]] = Seq(
+    JsonSerializer[PacoCommandMessage],
+    JsonSerializer[Paco],
+    JsonSerializer[PacoMessageChanged],
+    JsonSerializer[PacoState]
+  )
+}
+

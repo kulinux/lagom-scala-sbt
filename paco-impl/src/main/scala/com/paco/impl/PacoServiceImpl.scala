@@ -16,7 +16,7 @@ class PacoServiceImpl(persistentEntityRegistry: PersistentEntityRegistry)
 
   override def store(): ServiceCall[NotUsed, String] = ServiceCall{ _ =>
     // Look up the hello entity for the given ID.
-    val ref = persistentEntityRegistry.refFor[PacoEntity]("XXidToAsk")
+    val ref = persistentEntityRegistry.refFor[PacoEntity]("YYidToAsk")
     ref.ask(PacoCommandMessage("Quiero guardar esto"))
     Future.successful("Stored!!")
   }
