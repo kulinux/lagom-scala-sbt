@@ -51,6 +51,7 @@ lazy val `paco-impl` = (project in file("paco-impl"))
     )
   )
   .settings(lagomForkedTestSettings: _*)
+  .settings(lagomServicePort := 11000)
   .dependsOn(`paco-api`)
 
 

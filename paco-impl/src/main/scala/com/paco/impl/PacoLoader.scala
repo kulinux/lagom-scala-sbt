@@ -37,6 +37,6 @@ abstract class PacoApplication(context: LagomApplicationContext)
   override lazy val jsonSerializerRegistry = PacoSerializerRegistry
 
   // Register the hello persistent entity
-  //persistentEntityRegistry.register(wire[HelloEntity])
+  persistentEntityRegistry.register(wire[PacoEntity])
 }
 
