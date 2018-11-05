@@ -19,7 +19,7 @@ trait PacoService extends Service {
     named("paco").withCalls(
      pathCall("/api/paco/sayHello", sayHello _),
      pathCall("/api/paco/store", store _)
-    )
+    ).withAutoAcl(true)
   }
 
 
